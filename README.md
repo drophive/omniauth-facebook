@@ -1,4 +1,4 @@
-# OmniAuth Facebook &nbsp;[![Build Status](https://secure.travis-ci.org/mkdynamic/omniauth-facebook.svg?branch=master)](https://travis-ci.org/mkdynamic/omniauth-facebook) [![Gem Version](https://img.shields.io/gem/v/omniauth-facebook.svg)](https://rubygems.org/gems/omniauth-facebook)
+# OmniAuth Facebook &nbsp;[![Build Status](https://secure.travis-ci.org/simi/omniauth-facebook.svg?branch=master)](https://travis-ci.org/simi/omniauth-facebook) [![Gem Version](https://img.shields.io/gem/v/omniauth-facebook.svg)](https://rubygems.org/gems/omniauth-facebook)
 
 📣 **NOTICE** We’re looking for maintainers to help keep this project up-to-date. If you are interested in helping please open an Issue expressing your interest. Thanks! 📣
 
@@ -26,11 +26,11 @@ Here's a quick example, adding the middleware to a Rails app in `config/initiali
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET']
+  provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
 end
 ```
 
-[See the example Sinatra app for full examples](https://github.com/mkdynamic/omniauth-facebook/blob/master/example/config.ru) of both the server and client-side flows (including using the Facebook Javascript SDK).
+[See the example Sinatra app for full examples](https://github.com/simi/omniauth-facebook/blob/master/example/config.ru) of both the server and client-side flows (including using the Facebook Javascript SDK).
 
 ## Configuring
 
@@ -41,7 +41,7 @@ Option name | Default | Explanation
 `scope` | `email` | A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: https://developers.facebook.com/docs/reference/login/
 `display` | `page` | The display context to show the authentication page. Options are: `page`, `popup` and `touch`. Read the Facebook docs for more details: https://developers.facebook.com/docs/reference/dialogs/oauth/
 `image_size` | `square` | Set the size for the returned image url in the auth hash. Valid options include `square` (50x50), `small` (50 pixels wide, variable height), `normal` (100 pixels wide, variable height), or `large` (about 200 pixels wide, variable height). Additionally, you can request a picture of a specific size by setting this option to a hash with `:width` and `:height` as keys. This will return an available profile picture closest to the requested size and requested aspect ratio. If only `:width` or `:height` is specified, we will return a picture whose width or height is closest to the requested size, respectively.
-`info_fields` | 'name,email' | Specify exactly which fields should be returned when getting the user's info. Value should be a comma-separated string as per https://developers.facebook.com/docs/graph-api/reference/user/ (only `/me` endpoint).
+`info_fields` | `name,email` | Specify exactly which fields should be returned when getting the user's info. Value should be a comma-separated string as per https://developers.facebook.com/docs/graph-api/reference/user/ (only `/me` endpoint).
 `locale` |  | Specify locale which should be used when getting the user's info. Value should be locale string as per https://developers.facebook.com/docs/reference/api/locale/.
 `auth_type` | | Optionally specifies the requested authentication features as a comma-separated list, as per https://developers.facebook.com/docs/facebook-login/reauthentication/. Valid values are `https` (checks for the presence of the secure cookie and asks for re-authentication if it is not present), and `reauthenticate` (asks the user to re-authenticate unconditionally). Use 'rerequest' when you want to request premissions. Default is `nil`.
 `secure_image_url` | `false` | Set to `true` to use https for the avatar image url returned in the auth hash.
@@ -51,21 +51,21 @@ For example, to request `email`, `user_birthday` and `read_stream` permissions a
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, ENV['APP_ID'], ENV['APP_SECRET'],
+  provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
     scope: 'email,user_birthday,read_stream', display: 'popup'
 end
 ```
 
 ### API Version
 
-OmniAuth Facebook uses versioned API endpoints by default (current v2.10). You can configure a different version via `client_options` hash passed to `provider`, specifically you should change the version in the `site` and `authorize_url` parameters. For example, to change to v3.0 (assuming that exists):
+OmniAuth Facebook uses versioned API endpoints by default (current v3.0). You can configure a different version via `client_options` hash passed to `provider`, specifically you should change the version in the `site` and `authorize_url` parameters. For example, to change to v4.0 (assuming that exists):
 
 ```ruby
 use OmniAuth::Builder do
-  provider :facebook, ENV['APP_ID'], ENV['APP_SECRET'],
+  provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
     client_options: {
-      site: 'https://graph.facebook.com/v3.0',
-      authorize_url: "https://www.facebook.com/v3.0/dialog/oauth"
+      site: 'https://graph.facebook.com/v4.0',
+      authorize_url: "https://www.facebook.com/v4.0/dialog/oauth"
     }
 end
 ```

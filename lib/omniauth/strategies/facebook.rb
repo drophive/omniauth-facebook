@@ -14,8 +14,8 @@ module OmniAuth
       DEFAULT_SCOPE = 'email'
 
       option :client_options, {
-        site: 'https://graph.facebook.com/v2.10',
-        authorize_url: "https://www.facebook.com/v2.10/dialog/oauth",
+        site: 'https://graph.facebook.com/v3.0',
+        authorize_url: "https://www.facebook.com/v3.0/dialog/oauth",
         token_url: 'oauth/access_token'
       }
 
@@ -23,6 +23,8 @@ module OmniAuth
         header_format: 'OAuth %s',
         param_name: 'access_token'
       }
+
+      option :authorization_code_from_signed_request_in_cookie, nil
 
       option :authorize_options, [:scope, :display, :auth_type]
 

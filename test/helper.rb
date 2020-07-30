@@ -55,4 +55,4 @@ class StrategyTestCase < TestCase
   end
 end
 
-Dir[File.expand_path('../support/**/*', __FILE__)].each &method(:require)
+Dir[File.expand_path('../support/**/*', __FILE__)].each(&method(:require))

@@ -1,6 +1,7 @@
 require 'sinatra'
 require "sinatra/reloader"
 require 'yaml'
+require 'json'
 
 # configure sinatra
 set :run, false
@@ -27,8 +28,8 @@ get '/client-side' do
       <script type="text/javascript">
         window.fbAsyncInit = function() {
           FB.init({
-            appId: '#{ENV['APP_ID']}',
-            version: 'v2.10',
+            appId: '#{ENV['FACEBOOK_APP_ID']}',
+            version: 'v3.0',
             cookie: true // IMPORTANT must enable cookies to allow the server to access the session
           });
           console.log("fb init");
@@ -81,5 +82,5 @@ end
 # - ajax request made here for client-side flow
 get '/auth/:provider/callback' do
   content_type 'application/json'
-  MultiJson.encode(request.env)
+  JSON.dump(request.env)
 end
